@@ -1,0 +1,12 @@
+{
+  "QuBasicInfoPhase": {
+    "assistant_role_name": "Chief Professor",
+    "user_role_name": "Chief Executive Officer",
+    "phase_prompt": [
+      "目前，我们正在指导学生学习评估公司股价的基础知识。",
+      "作为{assistant_role}，你需要回答学生的问题。",
+      "公司A是一家大型金融公司，其股价最近连续达到每日交易涨跌停板的上限。",
+      "考虑到最近的国际金融形势，解答学生的问题。"
+    ]
+  }
+}

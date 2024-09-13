@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>QuChatDev</title>
+    </head>
+    <a> QuChatDev </a>
+    {% for item in pdfigs: %}
+    <img src={{ item }} alt="df" width="600" height="600">
+    {% endfor %}
+
+    {% for item in messages: %}
+    <a> {{ item['role'] }} </a>
+    <a> {{ item['text'] }} </a>
+    {% endfor %}
+</html>

@@ -1,0 +1,22 @@
+{
+    "chain": [{
+        "phase": "QuBasicInfoPhase",
+        "phaseType": "SimplePhase",
+        "max_turn_step": 1,
+        "need_reflect": "False"
+        }
+    ],
+    "recruitments": [
+        "Chief Executive Officer",
+        "Counselor",
+        "Chief Professor"
+    ],
+    "clear_structure": "True",
+    "gui_design": "True",
+    "git_management": "False",
+    "web_spider": "False",
+    "self_improve": "False",
+    "incremental_develop": "False",
+    "with_memory": "False",
+    "background_prompt": "QuChatDev 是一所专注于金融学科的大学，由教授和助教等AI代理人组成。这个多代理人组织的目标是解决学生的问题。"
+}
