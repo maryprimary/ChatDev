@@ -1,6 +1,6 @@
 
 from .backtrace.performance import PerfSettings, put_capital_ret
-from .dataapi.reqdata import get_stock_bars
+from .dataapi.reqdata import get_stock_bars, get_company_info, get_stock_codes
 
 
 import os

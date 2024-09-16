@@ -1,5 +1,6 @@
 import os
 import re
+import time
 from abc import ABC, abstractmethod
 
 from camel.agents import RolePlaying
@@ -8,6 +9,9 @@ from camel.typing import TaskType, ModelType
 from chatdev.chat_env import ChatEnv
 from chatdev.statistics import get_info
 from chatdev.utils import log_visualize, log_arguments
+
+#获取基本信息，然后在phase中update_phase_env调用
+from qufetcher.basicinfo import get_basicinfo, get_mr_score, get_liuwp_score
 
 
 class Phase(ABC):
@@ -658,11 +662,52 @@ class QuBasicInfoPhase(Phase):
 
     
     def update_phase_env(self, chat_env):
+        #stock_code在ChatChain.pre_processing中解析
+        _stock_desc = get_basicinfo(chat_env.env_dict['stock_code'])
+        _mrstg_scor = get_mr_score(chat_env.env_dict['stock_code'])
+        time.sleep(0.5)
+        _liuwp_df = get_liuwp_score(chat_env.env_dict['stock_code'])
+        _liuwpstg_rolling_max = _liuwp_df.at[_liuwp_df.index[-1], 'cls_rolling_max']
+        #log_visualize(_stock_desc)
+        #log_visualize(str(_mrstg_scor))
+        #exit()
+        #
         self.phase_env.update({"task": chat_env.env_dict['task_prompt'],
                                "modality": "Website",
                                "ideas": "",
                                "language": "markdown",
-                               "codes": "000001.SZ",
+                               "stock_code": chat_env.env_dict['stock_code'],
+                               "stock_desc": _stock_desc,
+                               "mrstg_scor": _mrstg_scor,
+                               "liuwpstg_rolling_max": _liuwpstg_rolling_max,
+                               "requirements": chat_env.get_requirements()})
+        #log_visualize("debug", "QuBasicInfoPhase")
+        #__debug_content = content = self.phase_prompt.format(
+        #    **({"assistant_role": self.assistant_role_name} | self.phase_env)
+        #)
+        #log_visualize("debug", "QuBasicInfoPhase: {}".format(__debug_content))
+
+    
+    def update_chat_env(self, chat_env: ChatEnv) -> ChatEnv:
+        #chat_env._update_manuals(self.seminar_conclusion)
+        #chat_env.rewrite_manuals()
+        chat_env.env_dict['basic_repr'] = self.seminar_conclusion
+        return chat_env
+    
+
+class QuJudgementPhase(Phase):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    
+    def update_phase_env(self, chat_env):
+        ''''''
+        self.phase_env.update({"task": chat_env.env_dict['task_prompt'],
+                               "modality": "Website",
+                               "ideas": "",
+                               "language": "markdown",
+                               "stock_code": chat_env.env_dict['stock_code'],
+                               "basic_repr": chat_env.env_dict['basic_repr'],
                                "requirements": chat_env.get_requirements()})
         #log_visualize("debug", "QuBasicInfoPhase")
         #__debug_content = content = self.phase_prompt.format(
@@ -674,4 +719,6 @@ class QuBasicInfoPhase(Phase):
     def update_chat_env(self, chat_env: ChatEnv) -> ChatEnv:
         chat_env._update_manuals(self.seminar_conclusion)
         chat_env.rewrite_manuals()
+        #chat_env.env_dict['review_comments'] = self.seminar_conclusion
         return chat_env
+

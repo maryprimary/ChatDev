@@ -245,6 +245,13 @@ class ChatChain:
         preprocess_msg += "**ChatGPTConfig**:\n{}\n\n".format(chat_gpt_config)
         log_visualize(preprocess_msg)
 
+        #
+        _task_json = json.loads(self.task_prompt_raw)
+        self.task_prompt_raw = _task_json['task']
+        for kkey in _task_json:
+            if kkey == 'task':
+                continue
+            self.chat_env.env_dict[kkey] = _task_json[kkey]
         # init task prompt
         if check_bool(self.config['self_improve']):
             self.chat_env.env_dict['task_prompt'] = self.self_task_improve(self.task_prompt_raw)

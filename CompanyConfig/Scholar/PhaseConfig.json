@@ -4,9 +4,20 @@
     "user_role_name": "Chief Executive Officer",
     "phase_prompt": [
       "目前，我们正在指导学生学习评估公司股价的基础知识。",
-      "作为{assistant_role}，你需要回答学生的问题。",
-      "公司A是一家大型金融公司，其股价最近连续达到每日交易涨跌停板的上限。",
-      "考虑到最近的国际金融形势，解答学生的问题。"
+      "作为{assistant_role}，你需要观察如下的内容，并完成你的任务。",
+      "公司A的主要业务是{stock_desc}。",
+      "今天其股价变化率的均值回归ZScore为{mrstg_scor}。今天回撤的幅度是{liuwpstg_rolling_max}。",
+      "考虑到最近的国际金融形势，请生成一份报告，方便决策者进行决策：{task}"
+    ]
+  },
+  "QuJudgementPhase": {
+    "assistant_role_name": "Chief Decision Maker",
+    "user_role_name": "Chief Executive Officer",
+    "phase_prompt": [
+      "目前，我们正在指导学生学习评估公司股价的基础知识。",
+      "作为{assistant_role}，你需要根据报告回答学生的问题。",
+      "首席专家为公司A撰写了一份报告，首席专家的报告内容为：{basic_repr}",
+      "请你判断：{task}。撰写的报告要以“是”或者“否”作为标题，取决于你对问题的看法。并附上对首席专家的报告的简要总结。"
     ]
   }
 }

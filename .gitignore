@@ -3,6 +3,7 @@ __temp__/
 .DS_Store
 
 #
+tests/test_send_email.py
 WareHouse/*
 !WareHouse/.gitkeep
 
