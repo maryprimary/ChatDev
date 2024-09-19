@@ -1,5 +1,5 @@
 """
-最简单的策略
+liuwp的策略
 """
 
 from dataclasses import dataclass
